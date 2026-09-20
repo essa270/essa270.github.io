@@ -1,5 +1,610 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>اعرض للبيع | النضال للتجارة</title><link rel="stylesheet" href="assets/style.css"></head><body>
-<header><div class="container nav"><a class="brand" href="index.html">النضال <span>للتجارة</span></a><nav><a href="index.html">الرئيسية</a><a href="vehicles.html">السيارات</a><a href="properties.html">العقارات</a><a href="request.html">اطلب عرضًا</a><a class="active" href="sell.html">اعرض للبيع</a><a href="contact.html">تواصل معنا</a><a class="lang" href="en/sell.html">English</a></nav></div></header>
-<main><section><div class="container"><h1 class="section-title">اعرض سيارتك أو عقارك</h1><p class="section-sub">أرسل التفاصيل الأولية، وسنتواصل معك لمراجعة العرض قبل نشره. لا يعني إرسال الطلب قبول الإعلان أو إتمام الصفقة.</p>
-<form onsubmit="sendSell(event)"><div class="field"><label>الاسم</label><input id="name" required></div><div class="field"><label>رقم التواصل</label><input id="phone" required></div><div class="field"><label>نوع العرض</label><select id="type"><option>سيارة</option><option>عقار</option></select></div><div class="field"><label>الموقع</label><input id="location" required></div><div class="field"><label>السعر المطلوب</label><input id="price"></div><div class="field"><label>التفاصيل</label><textarea id="details" placeholder="للسيارة: الماركة، الموديل، السنة، الحالة... وللعقار: النوع، المساحة، الغرف، الحالة..."></textarea></div><button class="btn primary" type="submit">إرسال العرض عبر واتساب</button></form></div></section></main>
-<footer>© 2026 Al-Nidal Trading</footer><script>function sendSell(e){e.preventDefault();const m=`عرض بيع جديد من موقع النضال للتجارة%0Aالاسم: ${encodeURIComponent(document.getElementById('name').value)}%0Aرقم التواصل: ${encodeURIComponent(document.getElementById('phone').value)}%0Aالنوع: ${encodeURIComponent(document.getElementById('type').value)}%0Aالموقع: ${encodeURIComponent(document.getElementById('location').value)}%0Aالسعر: ${encodeURIComponent(document.getElementById('price').value)}%0Aالتفاصيل: ${encodeURIComponent(document.getElementById('details').value)}`;location.href='https://wa.me/963940909530?text='+m}</script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>اعرض سيارتك أو عقارك | النضال للتجارة</title>
+
+  <link rel="stylesheet" href="assets/style.css">
+
+  <style>
+    .sell-form {
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #111;
+      color: #fff;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .details-box {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .success-message,
+    .error-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .success-message {
+      background: #123d20;
+      color: #9cffb3;
+    }
+
+    .error-message {
+      background: #4a1515;
+      color: #ffaaaa;
+    }
+
+    .hint {
+      font-size: 14px;
+      opacity: 0.75;
+      margin-top: 7px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      النضال للتجارة
+      <span>Al-Nidal Trading</span>
+    </a>
+
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="vehicles.html">السيارات</a>
+      <a href="properties.html">العقارات</a>
+      <a href="request.html">اطلب</a>
+      <a href="sell.html">اعرض</a>
+      <a href="contact.html">تواصل معنا</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container hero-inner">
+
+      <div class="eyebrow">AL-NIDAL TRADING</div>
+
+      <h1>
+        اعرض سيارتك أو عقارك
+        <span>وسنراجع العرض قبل نشره</span>
+      </h1>
+
+      <p>
+        أدخل معلومات العرض وأرسل الصور.
+        سيتم استلام الطلب ومراجعته قبل ظهوره على الموقع.
+      </p>
+
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container">
+
+      <div class="card sell-form">
+
+        <h2 class="section-title">بيانات العرض</h2>
+
+        <form id="listingForm">
+
+          <div class="field">
+            <label for="listing_type">نوع العرض</label>
+
+            <select id="listing_type" required>
+              <option value="">اختر نوع العرض</option>
+              <option value="car">🚗 سيارة</option>
+              <option value="property">🏠 عقار</option>
+            </select>
+          </div>
+
+
+          <div class="field">
+            <label for="title">عنوان العرض</label>
+
+            <input
+              type="text"
+              id="title"
+              placeholder="مثال: BMW X5 موديل 2022"
+              required
+            >
+          </div>
+
+
+          <div class="field">
+            <label for="description">وصف العرض</label>
+
+            <textarea
+              id="description"
+              placeholder="اكتب تفاصيل السيارة أو العقار..."
+            ></textarea>
+          </div>
+
+
+          <div class="field">
+            <label for="price">السعر</label>
+
+            <input
+              type="number"
+              id="price"
+              min="0"
+              step="0.01"
+              placeholder="مثال: 25000"
+              required
+            >
+          </div>
+
+
+          <div class="field">
+            <label for="location">الموقع</label>
+
+            <input
+              type="text"
+              id="location"
+              placeholder="المدينة / المنطقة"
+              required
+            >
+          </div>
+
+
+          <!-- بيانات السيارة -->
+
+          <div id="carDetails" class="details-box">
+
+            <h3>تفاصيل السيارة</h3>
+
+            <div class="field">
+              <label for="car_brand">الماركة</label>
+              <input type="text" id="car_brand" placeholder="BMW">
+            </div>
+
+            <div class="field">
+              <label for="car_model">الموديل</label>
+              <input type="text" id="car_model" placeholder="X5">
+            </div>
+
+            <div class="field">
+              <label for="car_year">سنة الصنع</label>
+              <input type="number" id="car_year" min="1900" max="2100">
+            </div>
+
+            <div class="field">
+              <label for="car_mileage">المسافة المقطوعة KM</label>
+              <input type="number" id="car_mileage" min="0">
+            </div>
+
+            <div class="field">
+              <label for="car_fuel">نوع الوقود</label>
+
+              <select id="car_fuel">
+                <option value="">اختر</option>
+                <option value="بنزين">بنزين</option>
+                <option value="ديزل">ديزل</option>
+                <option value="هجين">هجين</option>
+                <option value="كهرباء">كهرباء</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="car_transmission">ناقل الحركة</label>
+
+              <select id="car_transmission">
+                <option value="">اختر</option>
+                <option value="أوتوماتيك">أوتوماتيك</option>
+                <option value="يدوي">يدوي</option>
+              </select>
+            </div>
+
+          </div>
+
+
+          <!-- بيانات العقار -->
+
+          <div id="propertyDetails" class="details-box">
+
+            <h3>تفاصيل العقار</h3>
+
+            <div class="field">
+              <label for="property_type">نوع العقار</label>
+
+              <select id="property_type">
+                <option value="">اختر</option>
+                <option value="شقة">شقة</option>
+                <option value="منزل">منزل</option>
+                <option value="فيلا">فيلا</option>
+                <option value="أرض">أرض</option>
+                <option value="محل">محل تجاري</option>
+                <option value="مكتب">مكتب</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="property_area">المساحة بالمتر المربع</label>
+              <input type="number" id="property_area" min="0">
+            </div>
+
+            <div class="field">
+              <label for="property_rooms">عدد الغرف</label>
+              <input type="number" id="property_rooms" min="0">
+            </div>
+
+          </div>
+
+
+          <!-- بيانات صاحب العرض -->
+
+          <h3>بيانات التواصل</h3>
+
+          <div class="field">
+            <label for="contact_name">الاسم</label>
+
+            <input
+              type="text"
+              id="contact_name"
+              placeholder="اسمك"
+              required
+            >
+          </div>
+
+
+          <div class="field">
+            <label for="phone">رقم الهاتف</label>
+
+            <input
+              type="tel"
+              id="phone"
+              placeholder="+31..."
+              required
+            >
+          </div>
+
+
+          <div class="field">
+            <label for="email">البريد الإلكتروني</label>
+
+            <input
+              type="email"
+              id="email"
+              placeholder="example@email.com"
+            >
+          </div>
+
+
+          <!-- الصور -->
+
+          <div class="field">
+
+            <label for="images">صور العرض</label>
+
+            <input
+              type="file"
+              id="images"
+              accept="image/jpeg,image/png,image/webp"
+              multiple
+            >
+
+            <div class="hint">
+              يمكنك اختيار عدة صور. الحد الأقصى 10 MB للصورة.
+            </div>
+
+          </div>
+
+
+          <button type="submit" class="btn">
+            إرسال العرض للمراجعة
+          </button>
+
+        </form>
+
+
+        <div id="successMessage" class="success-message">
+          ✅ تم إرسال عرضك بنجاح.
+          سيبقى قيد المراجعة قبل نشره على الموقع.
+        </div>
+
+
+        <div id="errorMessage" class="error-message">
+          حدث خطأ أثناء إرسال العرض.
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<footer>
+  © 2026 Al-Nidal Trading
+</footer>
+
+
+<!-- مكتبة Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- إعدادات مشروعك -->
+<script src="assets/supabase.js"></script>
+
+
+<script>
+
+  const form = document.getElementById("listingForm");
+
+  const listingType = document.getElementById("listing_type");
+
+  const carDetails = document.getElementById("carDetails");
+
+  const propertyDetails = document.getElementById("propertyDetails");
+
+  const successMessage = document.getElementById("successMessage");
+
+  const errorMessage = document.getElementById("errorMessage");
+
+
+  listingType.addEventListener("change", function () {
+
+    carDetails.style.display = "none";
+
+    propertyDetails.style.display = "none";
+
+    if (this.value === "car") {
+      carDetails.style.display = "block";
+    }
+
+    if (this.value === "property") {
+      propertyDetails.style.display = "block";
+    }
+
+  });
+
+
+  form.addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    successMessage.style.display = "none";
+    errorMessage.style.display = "none";
+
+
+    const type = listingType.value;
+
+    if (!type) {
+      alert("اختر نوع العرض أولًا.");
+      return;
+    }
+
+
+    const files = document.getElementById("images").files;
+
+
+    if (files.length > 10) {
+      alert("يمكنك رفع 10 صور كحد أقصى.");
+      return;
+    }
+
+
+    for (const file of files) {
+
+      if (file.size > 10 * 1024 * 1024) {
+        alert("حجم إحدى الصور أكبر من 10 MB.");
+        return;
+      }
+
+    }
+
+
+    try {
+
+      const listingData = {
+
+        listing_type: type,
+
+        title: document.getElementById("title").value.trim(),
+
+        description: document.getElementById("description").value.trim(),
+
+        price: Number(document.getElementById("price").value),
+
+        currency: "EUR",
+
+        location: document.getElementById("location").value.trim(),
+
+        contact_name: document.getElementById("contact_name").value.trim(),
+
+        phone: document.getElementById("phone").value.trim(),
+
+        email: document.getElementById("email").value.trim() || null,
+
+        status: "pending"
+
+      };
+
+
+      if (type === "car") {
+
+        listingData.car_brand =
+          document.getElementById("car_brand").value.trim() || null;
+
+        listingData.car_model =
+          document.getElementById("car_model").value.trim() || null;
+
+        listingData.car_year =
+          Number(document.getElementById("car_year").value) || null;
+
+        listingData.car_mileage =
+          Number(document.getElementById("car_mileage").value) || null;
+
+        listingData.car_fuel =
+          document.getElementById("car_fuel").value || null;
+
+        listingData.car_transmission =
+          document.getElementById("car_transmission").value || null;
+
+      }
+
+
+      if (type === "property") {
+
+        listingData.property_type =
+          document.getElementById("property_type").value || null;
+
+        listingData.property_area =
+          Number(document.getElementById("property_area").value) || null;
+
+        listingData.property_rooms =
+          Number(document.getElementById("property_rooms").value) || null;
+
+      }
+
+
+      // إنشاء العرض أولًا
+
+      const { data: listing, error: insertError } = await supabase
+
+        .from("listings")
+
+        .insert(listingData)
+
+        .select("id")
+
+        .single();
+
+
+      if (insertError) {
+        throw insertError;
+      }
+
+
+      const imageUrls = [];
+
+
+      // رفع الصور
+
+      for (let i = 0; i < files.length; i++) {
+
+        const file = files[i];
+
+        const extension =
+          file.name.split(".").pop().toLowerCase();
+
+        const filePath =
+          type + "/" + listing.id + "/" +
+          Date.now() + "-" + i + "." + extension;
+
+
+        const { error: uploadError } = await supabase.storage
+
+          .from("listing-images")
+
+          .upload(filePath, file, {
+            contentType: file.type,
+            upsert: false
+          });
+
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+
+        const { data: publicUrlData } =
+          supabase.storage
+            .from("listing-images")
+            .getPublicUrl(filePath);
+
+
+        imageUrls.push(publicUrlData.publicUrl);
+
+      }
+
+
+      // حفظ روابط الصور مع العرض
+
+      if (imageUrls.length > 0) {
+
+        const { error: updateError } = await supabase
+
+          .from("listings")
+
+          .update({
+            images: imageUrls
+          })
+
+          .eq("id", listing.id);
+
+
+        if (updateError) {
+          throw updateError;
+        }
+
+      }
+
+
+      form.reset();
+
+      carDetails.style.display = "none";
+
+      propertyDetails.style.display = "none";
+
+      successMessage.style.display = "block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      errorMessage.textContent =
+        "❌ لم يتم إرسال العرض. يرجى المحاولة مرة أخرى.";
+
+      errorMessage.style.display = "block";
+
+    }
+
+  });
+
+</script>
+
+</body>
+  </html>
