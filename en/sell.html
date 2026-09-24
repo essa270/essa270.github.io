@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>List Your Car or Property | Al-Nidal Trading</title>
+
+  <link rel="stylesheet" href="../assets/style.css">
+
+  <style>
+    .sell-form {
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #111;
+      color: #fff;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .field textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .details-box {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .success-message,
+    .error-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .success-message {
+      background: #123d20;
+      color: #9cffb3;
+    }
+
+    .error-message {
+      background: #4a1515;
+      color: #ffaaaa;
+    }
+
+    .hint {
+      font-size: 14px;
+      opacity: 0.75;
+      margin-top: 7px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a class="brand" href="index.html">
+      Al-Nidal Trading
+      <span>النضال للتجارة</span>
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="vehicles.html">Cars</a>
+      <a href="properties.html">Real Estate</a>
+      <a href="request.html">Request</a>
+      <a href="sell.html" class="active">List for Sale</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="../sell.html">العربية</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main>
+
+  <section class="hero">
+
+    <div class="container hero-inner">
+
+      <div class="eyebrow">
+        AL-NIDAL TRADING
+      </div>
+
+      <h1>
+        List Your Car or Property
+        <span>We will review your listing before publication</span>
+      </h1>
+
+      <p>
+        Enter your listing information and upload your photos.
+        Your submission will be received and reviewed before it appears
+        on the website.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="container">
+
+      <div class="card sell-form">
+
+        <h2 class="section-title">
+          Listing Information
+        </h2>
+
+        <form id="listingForm">
+
+          <div class="field">
+
+            <label for="listing_type">
+              Listing Type
+            </label>
+
+            <select id="listing_type" required>
+
+              <option value="">
+                Select listing type
+              </option>
+
+              <option value="car">
+                🚗 Car
+              </option>
+
+              <option value="property">
+                🏠 Property
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="title">
+              Listing Title
+            </label>
+
+            <input
+              type="text"
+              id="title"
+              placeholder="Example: BMW X5 2022"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="description">
+              Description
+            </label>
+
+            <textarea
+              id="description"
+              placeholder="Enter the details of the car or property..."
+            ></textarea>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="price">
+              Price
+            </label>
+
+            <input
+              type="number"
+              id="price"
+              min="0"
+              step="0.01"
+              placeholder="Example: 25000"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="location">
+              Location
+            </label>
+
+            <input
+              type="text"
+              id="location"
+              placeholder="City / Area"
+              required
+            >
+
+          </div>
+
+
+          <!-- Car Details -->
+
+          <div id="carDetails" class="details-box">
+
+            <h3>
+              Car Details
+            </h3>
+
+
+            <div class="field">
+
+              <label for="car_brand">
+                Brand
+              </label>
+
+              <input
+                type="text"
+                id="car_brand"
+                placeholder="BMW"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="car_model">
+                Model
+              </label>
+
+              <input
+                type="text"
+                id="car_model"
+                placeholder="X5"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="car_year">
+                Year
+              </label>
+
+              <input
+                type="number"
+                id="car_year"
+                min="1900"
+                max="2100"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="car_mileage">
+                Mileage (KM)
+              </label>
+
+              <input
+                type="number"
+                id="car_mileage"
+                min="0"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="car_fuel">
+                Fuel Type
+              </label>
+
+              <select id="car_fuel">
+
+                <option value="">
+                  Select
+                </option>
+
+                <option value="Petrol">
+                  Petrol
+                </option>
+
+                <option value="Diesel">
+                  Diesel
+                </option>
+
+                <option value="Hybrid">
+                  Hybrid
+                </option>
+
+                <option value="Electric">
+                  Electric
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="car_transmission">
+                Transmission
+              </label>
+
+              <select id="car_transmission">
+
+                <option value="">
+                  Select
+                </option>
+
+                <option value="Automatic">
+                  Automatic
+                </option>
+
+                <option value="Manual">
+                  Manual
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- Property Details -->
+
+          <div id="propertyDetails" class="details-box">
+
+            <h3>
+              Property Details
+            </h3>
+
+
+            <div class="field">
+
+              <label for="property_type">
+                Property Type
+              </label>
+
+              <select id="property_type">
+
+                <option value="">
+                  Select
+                </option>
+
+                <option value="Apartment">
+                  Apartment
+                </option>
+
+                <option value="House">
+                  House
+                </option>
+
+                <option value="Villa">
+                  Villa
+                </option>
+
+                <option value="Land">
+                  Land
+                </option>
+
+                <option value="Shop">
+                  Commercial Shop
+                </option>
+
+                <option value="Office">
+                  Office
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="property_area">
+                Area (m²)
+              </label>
+
+              <input
+                type="number"
+                id="property_area"
+                min="0"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="property_rooms">
+                Number of Rooms
+              </label>
+
+              <input
+                type="number"
+                id="property_rooms"
+                min="0"
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- Contact Information -->
+
+          <h3>
+            Contact Information
+          </h3>
+
+
+          <div class="field">
+
+            <label for="contact_name">
+              Name
+            </label>
+
+            <input
+              type="text"
+              id="contact_name"
+              placeholder="Your name"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="phone">
+              Phone Number
+            </label>
+
+            <input
+              type="tel"
+              id="phone"
+              placeholder="+31..."
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="email">
+              Email Address
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              placeholder="example@email.com"
+            >
+
+          </div>
+
+
+          <!-- Images -->
+
+          <div class="field">
+
+            <label for="images">
+              Listing Photos
+            </label>
+
+            <input
+              type="file"
+              id="images"
+              accept="image/jpeg,image/png,image/webp"
+              multiple
+            >
+
+            <div class="hint">
+              You can select multiple images. Maximum 10 MB per image.
+            </div>
+
+          </div>
+
+
+          <button type="submit" class="btn">
+            Submit Listing for Review
+          </button>
+
+        </form>
+
+
+        <div id="successMessage" class="success-message">
+          ✅ Your listing has been submitted successfully.
+          It will remain under review before being published.
+        </div>
+
+
+        <div id="errorMessage" class="error-message">
+          An error occurred while submitting your listing.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  © 2026 Al-Nidal Trading
+
+</footer>
+
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Supabase Configuration -->
+<script src="../assets/supabase.js"></script>
+
+
+<script>
+
+  const form = document.getElementById("listingForm");
+
+  const listingType = document.getElementById("listing_type");
+
+  const carDetails = document.getElementById("carDetails");
+
+  const propertyDetails = document.getElementById("propertyDetails");
+
+  const successMessage = document.getElementById("successMessage");
+
+  const errorMessage = document.getElementById("errorMessage");
+
+
+  listingType.addEventListener("change", function () {
+
+    carDetails.style.display = "none";
+
+    propertyDetails.style.display = "none";
+
+    if (this.value === "car") {
+      carDetails.style.display = "block";
+    }
+
+    if (this.value === "property") {
+      propertyDetails.style.display = "block";
+    }
+
+  });
+
+
+  form.addEventListener("submit", async function (e) {
+
+    e.preventDefault();
+
+    successMessage.style.display = "none";
+
+    errorMessage.style.display = "none";
+
+
+    const type = listingType.value;
+
+
+    if (!type) {
+
+      alert("Please select a listing type first.");
+
+      return;
+
+    }
+
+
+    const files = document.getElementById("images").files;
+
+
+    if (files.length > 10) {
+
+      alert("You can upload a maximum of 10 images.");
+
+      return;
+
+    }
+
+
+    for (const file of files) {
+
+      if (file.size > 10 * 1024 * 1024) {
+
+        alert("One of the images is larger than 10 MB.");
+
+        return;
+
+      }
+
+    }
+
+
+    try {
+
+      const listingData = {
+
+        listing_type: type,
+
+        title: document.getElementById("title").value.trim(),
+
+        description: document.getElementById("description").value.trim(),
+
+        price: Number(document.getElementById("price").value),
+
+        currency: "EUR",
+
+        location: document.getElementById("location").value.trim(),
+
+        contact_name:
+          document.getElementById("contact_name").value.trim(),
+
+        phone:
+          document.getElementById("phone").value.trim(),
+
+        email:
+          document.getElementById("email").value.trim() || null,
+
+        status: "pending"
+
+      };
+
+
+      if (type === "car") {
+
+        listingData.car_brand =
+          document.getElementById("car_brand").value.trim() || null;
+
+        listingData.car_model =
+          document.getElementById("car_model").value.trim() || null;
+
+        listingData.car_year =
+          Number(document.getElementById("car_year").value) || null;
+
+        listingData.car_mileage =
+          Number(document.getElementById("car_mileage").value) || null;
+
+        listingData.car_fuel =
+          document.getElementById("car_fuel").value || null;
+
+        listingData.car_transmission =
+          document.getElementById("car_transmission").value || null;
+
+      }
+
+
+      if (type === "property") {
+
+        listingData.property_type =
+          document.getElementById("property_type").value || null;
+
+        listingData.property_area =
+          Number(document.getElementById("property_area").value) || null;
+
+        listingData.property_rooms =
+          Number(document.getElementById("property_rooms").value) || null;
+
+      }
+
+
+      const { data: listing, error: insertError } =
+        await supabase
+
+          .from("listings")
+
+          .insert(listingData)
+
+          .select("id")
+
+          .single();
+
+
+      if (insertError) {
+        throw insertError;
+      }
+
+
+      const imageUrls = [];
+
+
+      for (let i = 0; i < files.length; i++) {
+
+        const file = files[i];
+
+        const extension =
+          file.name.split(".").pop().toLowerCase();
+
+
+        const filePath =
+          type + "/" +
+          listing.id + "/" +
+          Date.now() +
+          "-" +
+          i +
+          "." +
+          extension;
+
+
+        const { error: uploadError } =
+          await supabase.storage
+
+            .from("listing-images")
+
+            .upload(
+              filePath,
+              file,
+              {
+                contentType: file.type,
+                upsert: false
+              }
+            );
+
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+
+        const { data: publicUrlData } =
+          supabase.storage
+
+            .from("listing-images")
+
+            .getPublicUrl(filePath);
+
+
+        imageUrls.push(
+          publicUrlData.publicUrl
+        );
+
+      }
+
+
+      if (imageUrls.length > 0) {
+
+        const { error: updateError } =
+          await supabase
+
+            .from("listings")
+
+            .update({
+              images: imageUrls
+            })
+
+            .eq("id", listing.id);
+
+
+        if (updateError) {
+          throw updateError;
+        }
+
+      }
+
+
+      form.reset();
+
+      carDetails.style.display = "none";
+
+      propertyDetails.style.display = "none";
+
+      successMessage.style.display = "block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      errorMessage.textContent =
+        "❌ The listing could not be submitted. Please try again.";
+
+      errorMessage.style.display = "block";
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
