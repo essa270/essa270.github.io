@@ -3,9 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <meta name="description" content="Al-Nidal Trading - وساطة السيارات والعقارات">
   <title>Al-Nidal Trading | النضال للتجارة</title>
+
   <link rel="stylesheet" href="assets/style.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -148,6 +153,16 @@
     </div>
   </section>
 
+  <!-- عداد الزوار -->
+  <section>
+    <div class="container">
+      <div class="notice" style="text-align:center;">
+        <h2>👁 زوار الموقع</h2>
+        <p id="visitor-count">جاري تحميل عدد الزوار...</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -157,6 +172,49 @@
     <span class="small">وساطة السيارات والعقارات</span>
   </div>
 </footer>
+
+
+<script>
+  // بيانات Supabase
+  const SUPABASE_URL = "https://xklbpwazbzahenhusxsl.supabase.co";
+
+  // ضع Publishable key الذي نسخته من Supabase بين علامتي التنصيص
+  const SUPABASE_KEY = "sb_publishable_q87itJOVUmnh7gPoNI_1LA_b4h74uXE";
+
+  const { createClient } = supabase;
+
+  const supabaseClient = createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function updateVisitorCount() {
+
+    const counter = document.getElementById("visitor-count");
+
+    try {
+
+      const { data, error } = await supabaseClient
+        .rpc("increment_site_visits");
+
+      if (error) {
+        console.error(error);
+        counter.textContent = "تعذر تحميل عدد الزوار";
+        return;
+      }
+
+      counter.textContent = "عدد زيارات الموقع: " + data;
+
+    } catch (error) {
+
+      console.error(error);
+      counter.textContent = "تعذر تحميل عدد الزوار";
+
+    }
+  }
+
+  updateVisitorCount();
+</script>
 
 </body>
 </html>
